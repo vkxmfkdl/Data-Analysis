@@ -1,0 +1,43 @@
+
+#폴더 내 파일 확장자 변경
+import os
+import glob
+os.chdir("C:/Users/pc/화재")
+a= glob.glob("*.*")
+for i in a:
+    b= i.split(".")
+    b[1]="jpg"
+    c=".".join(b)
+    os.rename(i,c)
+
+#현재 디렉토리검색
+os.getcwd()
+
+#사이즈 조절 및 블러처리, 자세히, 날카롭게, 부드럽게/ 좌우반전 상태, 좌우반전상태의 블러,자세히,날카롭게,부드럽게 처리후 저장
+from PIL import Image
+import os
+import glob
+from PIL import ImageFilter
+os.chdir("C:/Users/pc/동고비/burning")
+try:
+    
+    glob.glob("*.*")
+    for i in glob.glob("*.*"):
+        image = Image.open(i)
+        image.convert('RGB')
+        resize= image.resize((128,128))
+        resize.save(i)
+        resize.filter(ImageFilter.BLUR).save('6'+i)
+        resize.filter(ImageFilter.DETAIL).save('7'+i)
+        resize.filter(ImageFilter.EDGE_ENHANCE).save('8'+i)
+        resize.filter(ImageFilter.EDGE_ENHANCE).save('9'+i)    
+        resized= resize.transpose(Image.FLIP_LEFT_RIGHT)
+        resized.save('1'+i)
+        resized.filter(ImageFilter.BLUR).save('2'+i)
+        resized.filter(ImageFilter.DETAIL).save('3'+i)
+        resized.filter(ImageFilter.EDGE_ENHANCE).save('4'+i)
+        resized.filter(ImageFilter.EDGE_ENHANCE).save('5'+i)
+except OSError:
+    pass
+
+
